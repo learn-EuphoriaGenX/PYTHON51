@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}Login Page{% endblock title %}
+{% block style %}
+<style>
+  body {
+    background: linear-gradient(135deg, #191734ff, #3f51b5);
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .card {
+    border-radius: 1rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .login-container {
+    min-height: 100vh;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center login-container">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-lg p-4">
+      <h3 class="text-center mb-4">Welcome Back</h3>
+      <form method="POST">
+        {% csrf_token %}
+        <!-- Email input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+           <label class="form-label" for="form1Example1">User Name</label>
+          <input type="text" id="form1Example1" name="user_name" class="form-control" placeholder="Enter your name" />
+        </div>
+
+        <!-- Password input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="form1Example2">Password</label>
+          <input type="password" id="form1Example2" name="user_password" class="form-control" placeholder="Enter your password" />
+        </div>
+
+        <!-- Submit button -->
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block w-100">
+          Login in
+        </button>
+
+        <!-- Register link -->
+        <div class="text-center mt-4">
+          <p>Don't have an account? <a href="{% url "register" %}" class="text-decoration-none">Register here</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

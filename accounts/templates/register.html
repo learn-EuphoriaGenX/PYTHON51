@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}Register Page{% endblock title %}
+{% block style %}
+<style>
+  body {
+    background: linear-gradient(135deg, #3f51b5, #191734ff );
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .card {
+    border-radius: 1rem;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .login-container {
+    min-height: 100vh;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center login-container">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-lg p-4">
+      <h3 class="text-center mb-4">Register here</h3>
+      <form method="POST">
+        {% csrf_token %}
+        <!-- Email input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+          <label class="form-label" for="form1Example0">User Name</label>
+          <input type="text" id="form1Example0" name="user_name" class="form-control" placeholder="Enter your name" />
+        </div>
+
+        <!-- Email input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+           <label class="form-label" for="form1Example1">Email address</label>
+          <input type="email" id="form1Example1" name="user_email" class="form-control" placeholder="Enter your email" />
+        </div>
+
+        <!-- Password input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="form1Example2">Password</label>
+          <input type="password" id="form1Example2" name="user_password" class="form-control" placeholder="Enter your password" />
+        </div>
+
+        <!-- Submit button -->
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block w-100">
+          Register
+        </button>
+
+        <!-- Register link -->
+        <div class="text-center mt-4">
+          <p>Already have an account? <a href="{% url "login" %}" class="text-decoration-none">Login here</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
