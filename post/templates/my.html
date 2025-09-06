@@ -1,23 +1,25 @@
 {% extends "layout.html" %}
 
-{% block title %}Recent Posts{% endblock title %}
+{% block title %}My Creations{% endblock title %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Recent Posts 🚀</h1>
-    <div class="d-flex flex-wrap justify-content- gap-4">
-       {% for post  in posts %}
+    <h1 class="mb-4">My Creations 🚀</h1>
+    <div class="d-flex flex-wrap justify-content-between gap-4">
+        {% for post in posts %}
         <div class="card" style="width: 18rem;">
             <img class="card-img-top" style="height:300px" src={{post.image.url}} alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{post.title | truncatewords:5}}</h5>
                 <p class="card-text">{{post.content | truncatewords:10}}</p>
                 <a href="{% url "post_detail" post.id %}" class="btn btn-primary">Read More</a>
+                <a href="{% url "delete_post" post.id %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
-       {% empty %}
+        {% empty %}
         <p>No posts available.</p>
-       {% endfor %}
+        {% endfor %}
     </div>
+
 </div>
 {% endblock content %}

@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <!-- Post Image -->
+        <img src="{{ post.image.url }}" 
+             class="card-img-top rounded-top-4" 
+             alt="{{ post.title }}" 
+             style="height: 400px; object-fit: cover;">
+
+        <!-- Post Body -->
+        <div class="card-body p-4">
+            <!-- Title -->
+            <h2 class="card-title fw-bold mb-3">{{ post.title }}</h2>
+
+            <!-- Meta Info -->
+            <div class="d-flex flex-wrap text-muted small mb-3 gap-3 align-items-center">
+                <span>✍️ <strong>{{ post.author }}</strong></span>
+                <span>📅 {{ post.created_at|date:"M d, Y" }}</span>
+                <span>🏷️ {{ post.category }}</span>
+                <span>❤️ {{ post.likes }} Likes</span>
+                <!-- Buttons -->
+                <form method="POST" class="d-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="liked" required>
+                    <button class="btn btn-primary rounded-pill ms-4" type="submit">👍 Like</button>
+                </form>
+            
+            </div>
+
+            <!-- Content -->
+            <p class="card-text fs-5 lh-lg">
+                {{ post.content }}
+            </p>
+
+            
+           <div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="POST" class="d-flex align-items-center gap-2">
+            {% csrf_token %}
+            <input type="text" 
+                   class="form-control rounded-pill" 
+                   placeholder="💬 Write your comment..." 
+                   name="comment" required>
+            <button class="btn btn-primary rounded-pill px-4">Post</button>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-light fw-bold">
+        Comments
+    </div>
+    <div class="card-body">
+        {% for comment in comments %}
+            <div class="d-flex align-items-start mb-3">
+                <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center" 
+                     style="width: 40px; height: 40px;">
+                    {{ comment.user.username|first|upper }}
+                </div>
+                <div class="ms-3">
+                    <h6 class="mb-1">{{ comment.user.username }}</h6>
+                    <p class="mb-0 text-muted">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet. Be the first to add one!</p>
+        {% endfor %}
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+</style>
+{% endblock content %}
